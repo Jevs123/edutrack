@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EDUTRACK · dashboard</title>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+    }
+
+    body {
+      background: #f5f2eb; /* beige base */
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* main card – dashboard container */
+    .dashboard {
+      width: 100%;
+      max-width: 1300px;
+      min-height: 95vh;
+      background: #ffffff;
+      border-radius: 40px 40px 30px 30px;
+      box-shadow: 0 20px 40px rgba(0, 40, 20, 0.12);
+      margin: 20px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* ----- LOGIN PAGE (default visible) ----- */
+    .login-page {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 2rem 3rem;
+      background: #ffffff;
+      flex: 1;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .logo-icon {
+      background: #2a5c3e;
+      color: #f5f2eb;
+      width: 60px;
+      height: 60px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      box-shadow: 0 6px 0 #1d3f2b;
+    }
+
+    .logo-text {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #1d3f2b;
+      letter-spacing: -0.5px;
+    }
+    .logo-text span {
+      color: #2a5c3e;
+      background: #eae3d8;
+      padding: 0 10px;
+      border-radius: 40px;
+      font-weight: 500;
+    }
+
+    .login-sub {
+      color: #5f6b5f;
+      font-size: 1rem;
+      background: #eae3d8;
+      padding: 0.3rem 2rem;
+      border-radius: 50px;
+      margin-bottom: 2rem;
+      font-weight: 500;
+    }
+
+    .login-form {
+      background: #f9f6f0;
+      padding: 2rem 2.5rem;
+      border-radius: 40px;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.02), 0 8px 18px rgba(30, 50, 30, 0.06);
+    }
+
+    .login-form h3 {
+      color: #1d3f2b;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .login-form .role-tag {
+      background: #2a5c3e;
+      color: white;
+      font-size: 0.7rem;
+      padding: 0.2rem 1rem;
+      border-radius: 40px;
+      letter-spacing: 0.5px;
+    }
+
+    .input-group {
+      margin: 1.2rem 0 0.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .input-group label {
+      font-weight: 500;
+      color: #2c4b33;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .input-group input {
+      padding: 12px 16px;
+      border: 1px solid #d6cfc2;
+      border-radius: 60px;
+      background: white;
+      font-size: 1rem;
+      transition: 0.2s;
+      outline: none;
+    }
+
+    .input-group input:focus {
+      border-color: #2a5c3e;
+      box-shadow: 0 0 0 3px rgba(42, 92, 62, 0.15);
+    }
+
+    .login-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 1.8rem;
+    }
+
+    .btn-primary {
+      background: #2a5c3e;
+      border: none;
+      color: white;
+      font-weight: 600;
+      padding: 14px;
+      border-radius: 60px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.15s;
+      box-shadow: 0 4px 0 #1a3f2a;
+      letter-spacing: 0.3px;
+    }
+
+    .btn-primary:hover {
+      background: #1f4a31;
+      transform: scale(0.98);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid #2a5c3e;
+      color: #1d3f2b;
+      font-weight: 500;
+      padding: 10px;
+      border-radius: 60px;
+      cursor: pointer;
+      transition: 0.1s;
+    }
+
+    .btn-outline:hover {
+      background: #eae3d8;
+    }
+
+    .role-switch {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin: 12px 0 6px;
+    }
+
+    .role-switch button {
+      background: transparent;
+      border: 1px solid #b7b0a2;
+      padding: 6px 20px;
+      border-radius: 40px;
+      font-weight: 600;
+      color: #3f5543;
+      cursor: pointer;
+      transition: 0.1s;
+    }
+
+    .role-switch button.active {
+      background: #2a5c3e;
+      color: white;
+      border-color: #2a5c3e;
+    }
+
+    /* ----- MAIN APP (hidden by default) ----- */
+    .app-container {
+      display: none;
+      flex-direction: column;
+      height: 100%;
+      min-height: 90vh;
+    }
+
+    /* top bar */
+    .topbar {
+      background: #ffffff;
+      padding: 18px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #ece6dc;
+      flex-wrap: wrap;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .topbar-left i {
+      font-size: 1.6rem;
+      color: #2a5c3e;
+    }
+
+    .topbar-left h2 {
+      color: #1d3f2b;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .topbar-right i {
+      font-size: 1.4rem;
+      color: #2a5c3e;
+      cursor: pointer;
+      transition: 0.1s;
+    }
+
+    .topbar-right i:hover {
+      color: #143f25;
+    }
+
+    .profile-badge {
+      background: #eae3d8;
+      padding: 6px 14px 6px 10px;
+      border-radius: 40px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 500;
+      color: #1d3f2b;
+    }
+
+    /* main content */
+    .main-content {
+      display: flex;
+      flex: 1;
+      background: #f9f6f0;
+      padding: 24px 28px;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+
+    .sidebar {
+      flex: 1 1 220px;
+      min-width: 180px;
+    }
+
+    .sidebar-card {
+      background: white;
+      padding: 20px 16px;
+      border-radius: 28px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.02);
+    }
+
+    .sidebar-card h4 {
+      color: #2a5c3e;
+      margin-bottom: 14px;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+      border-bottom: 1px solid #eae3d8;
+      padding-bottom: 10px;
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 10px;
+      margin: 4px 0;
+      border-radius: 60px;
+      color: #2c4b33;
+      font-weight: 500;
+      transition: 0.1s;
+      cursor: pointer;
+    }
+
+    .menu-item i {
+      width: 22px;
+      color: #2a5c3e;
+    }
+
+    .menu-item:hover {
+      background: #eae3d8;
+    }
+
+    .menu-item.active {
+      background: #2a5c3e;
+      color: white;
+    }
+    .menu-item.active i {
+      color: white;
+    }
+
+    .content-panel {
+      flex: 3 1 480px;
+      background: white;
+      border-radius: 32px;
+      padding: 24px 28px;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.02);
+    }
+
+    .content-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
+
+    .content-header h3 {
+      color: #1d3f2b;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .class-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 18px;
+    }
+
+    .class-card {
+      background: #f5f2eb;
+      padding: 20px 10px;
+      border-radius: 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.1s;
+      border: 1px solid transparent;
+    }
+
+    .class-card:hover {
+      border-color: #2a5c3e;
+      background: #edf3ea;
+    }
+
+    .class-card i {
+      font-size: 2rem;
+      color: #2a5c3e;
+      margin-bottom: 6px;
+    }
+
+    .class-card span {
+      display: block;
+      font-weight: 500;
+      color: #1d3f2b;
+    }
+
+    .subject-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .subject-item {
+      background: #f9f6f0;
+      padding: 14px 20px;
+      border-radius: 60px;
+      display: flex;
+      justify-content: space-between;
+      font-weight: 500;
+      color: #1d3f2b;
+      border-left: 6px solid #2a5c3e;
+      cursor: pointer;
+      transition: 0.1s;
+    }
+
+    .subject-item:hover {
+      background: #eae3d8;
+    }
+
+    .badge-opt {
+      background: #d6cfc2;
+      padding: 0 14px;
+      border-radius: 60px;
+      font-size: 0.7rem;
+      color: #1d3f2b;
+      font-weight: 600;
+    }
+
+    .opt-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 16px 0;
+    }
+
+    .opt-pill {
+      background: #f5f2eb;
+      padding: 8px 22px;
+      border-radius: 60px;
+      font-weight: 500;
+      color: #1d3f2b;
+      cursor: pointer;
+      border: 1px solid transparent;
+    }
+
+    .opt-pill:hover {
+      border-color: #2a5c3e;
+      background: white;
+    }
+
+    .back-sign {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 12px;
+      color: #2a5c3e;
+      font-weight: 500;
+    }
+
+    .back-sign i {
+      font-size: 1.3rem;
+      cursor: pointer;
+    }
+
+    /* Settings panel (hidden) */
+    .settings-overlay {
+      display: none;
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 360px;
+      background: white;
+      height: 100%;
+      box-shadow: -8px 0 20px rgba(0,0,0,0.04);
+      padding: 28px 20px;
+      border-radius: 30px 0 0 30px;
+      z-index: 10;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .settings-overlay.open {
+      display: flex;
+    }
+
+    .settings-overlay .close-settings {
+      align-self: flex-end;
+      font-size: 1.4rem;
+      color: #2a5c3e;
+      cursor: pointer;
+    }
+
+    .settings-overlay h3 {
+      color: #1d3f2b;
+      border-bottom: 1px solid #eae3d8;
+      padding-bottom: 12px;
+    }
+
+    .settings-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 0;
+      border-bottom: 1px solid #f0ebe2;
+      color: #1d3f2b;
+    }
+
+    .settings-item i {
+      width: 28px;
+      color: #2a5c3e;
+    }
+
+    /* responsiveness */
+    @media (max-width: 700px) {
+      .dashboard { margin: 10px; border-radius: 24px; }
+      .login-form { padding: 1.5rem; }
+      .topbar { flex-direction: column; align-items: start; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+<div class="dashboard" id="dashboard">
+
+  <!-- LOGIN PAGE -->
+  <div class="login-page" id="loginPage">
+    <div class="logo-area">
+      <div class="logo-icon"><i class="fas fa-graduation-cap"></i></div>
+      <div class="logo-text">EDU<span>TRACK</span></div>
+    </div>
+    <div class="login-sub">Academic Keeper · Task Reminders</div>
+
+    <div class="login-form">
+      <h3><i class="fas fa-user-graduate"></i> Log in <span class="role-tag" id="roleTag">Student</span></h3>
+      <div class="role-switch">
+        <button id="roleStudentBtn" class="active">👤 Student</button>
+        <button id="roleTeacherBtn">🧑‍🏫 Teacher</button>
+      </div>
+      <div class="input-group">
+        <label><i class="fas fa-id-card"></i> LRN / ID</label>
+        <input type="text" placeholder="e.g., 123456789012" value="2025-1001">
+      </div>
+      <div class="input-group">
+        <label><i class="fas fa-lock"></i> Password</label>
+        <input type="password" placeholder="••••••••" value="edutrack123">
+      </div>
+      <div class="login-actions">
+        <button class="btn-primary" id="loginBtn"><i class="fas fa-sign-in-alt"></i> Enter Dashboard</button>
+        <button class="btn-outline"><i class="fas fa-info-circle"></i> Forgot LRN?</button>
+      </div>
+      <div style="margin-top: 14px; font-size:0.8rem; color:#5f6b5f; text-align:center;">Use any LRN · demo credentials</div>
+    </div>
+  </div>
+
+  <!-- MAIN APP (hidden until login) -->
+  <div class="app-container" id="appContainer">
+    <!-- top bar -->
+    <div class="topbar">
+      <div class="topbar-left">
+        <i class="fas fa-graduation-cap"></i>
+        <h2>EDUTRACK</h2>
+        <span style="background:#eae3d8; padding:0 14px; border-radius:40px; font-size:0.8rem; font-weight:500;">STEM 12-AMECA</span>
+      </div>
+      <div class="topbar-right">
+        <i class="fas fa-bell"></i>
+        <div class="profile-badge" id="profileBadge">
+          <i class="fas fa-user-circle"></i> <span id="userRoleDisplay">Student</span>
+        </div>
+        <i class="fas fa-cog" id="settingsGear"></i>
+      </div>
+    </div>
+
+    <!-- main content -->
+    <div class="main-content">
+      <!-- sidebar -->
+      <div class="sidebar">
+        <div class="sidebar-card">
+          <h4><i class="fas fa-th-list"></i> Menu</h4>
+          <div class="menu-item active" id="homeMenu"><i class="fas fa-home"></i> Home</div>
+          <div class="menu-item" id="classroomMenu"><i class="fas fa-chalkboard-teacher"></i> Classroom</div>
+          <div class="menu-item"><i class="fas fa-calendar-check"></i> Reminders</div>
+          <div class="menu-item"><i class="fas fa-file-alt"></i> Assignments</div>
+          <div style="margin-top: 20px; border-top:1px solid #eae3d8; padding-top:14px;">
+            <div class="menu-item" id="settingsMenuItem"><i class="fas fa-cog"></i> Settings</div>
+            <div class="menu-item" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Log out</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- content panel -->
+      <div class="content-panel" id="contentPanel">
+        <div class="content-header">
+          <h3 id="panelTitle"><i class="fas fa-home"></i> Dashboard</h3>
+          <span style="background:#eae3d8; padding:4px 18px; border-radius:40px; font-size:0.8rem;">S.Y 2026-2027</span>
+        </div>
+
+        <!-- dynamic content -->
+        <div id="dynamicContent">
+          <!-- home default: classroom grid -->
+          <div class="class-grid" id="classGrid">
+            <div class="class-card" data-class="grade12"><i class="fas fa-users"></i><span>Grade 12</span></div>
+            <div class="class-card" data-class="stem"><i class="fas fa-flask"></i><span>STEM</span></div>
+            <div class="class-card" data-class="amaca"><i class="fas fa-star"></i><span>AMECA</span></div>
+            <div class="class-card" data-class="subjects"><i class="fas fa-book-open"></i><span>Subjects</span></div>
+          </div>
+          <div style="margin-top: 18px; background:#f5f2eb; border-radius:20px; padding:16px;">
+            <p style="display:flex; gap:20px; flex-wrap:wrap; color:#1d3f2b;">
+              <span><i class="fas fa-clock" style="color:#2a5c3e;"></i> Upcoming: Math PT · Due 2026-07-05</span>
+              <span><i class="fas fa-bullhorn"></i> Announcement: Research defense</span>
+            </p>
+          </div>
+        </div>
+        <!-- back & sign (upper left) -->
+        <div class="back-sign" id="backSign">
+          <i class="fas fa-arrow-left" id="backButton"></i>
+          <span id="backLabel">Back</span>
+          <span style="margin-left:auto; background:#2a5c3e; color:white; padding:0 12px; border-radius:40px; font-size:0.8rem;">+</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SETTINGS OVERLAY (slide-in) -->
+  <div class="settings-overlay" id="settingsOverlay">
+    <div class="close-settings" id="closeSettings"><i class="fas fa-times"></i></div>
+    <h3><i class="fas fa-sliders-h"></i> Settings</h3>
+    <div class="settings-item"><i class="fas fa-info-circle"></i> About · STEM 12-AMECA, S.Y 2026-2027</div>
+    <div class="settings-item"><i class="fas fa-school"></i> School · AMECA High</div>
+    <div class="settings-item"><i class="fas fa-user-tie"></i> Principal · Dr. Rosario</div>
+    <div class="settings-item"><i class="fas fa-chalkboard-teacher"></i> Teacher · Mr. Dela Cruz</div>
+    <div class="settings-item"><i class="fas fa-code"></i> Developer · EDUTRACK team</div>
+    <div style="border-top:1px solid #eae3d8; margin:10px 0;"></div>
+    <div class="settings-item"><i class="fas fa-user"></i> Profile · <span id="profileName">J. Martinez</span></div>
+    <div class="settings-item"><i class="fas fa-id-card"></i> LRN · 2025-1001</div>
+    <div class="settings-item"><i class="fas fa-key"></i> Change password</div>
+    <div style="margin-top: 20px;"><button class="btn-outline" style="width:100%;" id="logoutFromSettings"><i class="fas fa-sign-out-alt"></i> Log out</button></div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    // ----- DOM refs -----
+    const loginPage = document.getElementById('loginPage');
+    const appContainer = document.getElementById('appContainer');
+    const loginBtn = document.getElementById('loginBtn');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const logoutFromSettings = document.getElementById('logoutFromSettings');
+    const settingsGear = document.getElementById('settingsGear');
+    const settingsOverlay = document.getElementById('settingsOverlay');
+    const closeSettings = document.getElementById('closeSettings');
+    const settingsMenuItem = document.getElementById('settingsMenuItem');
+
+    const roleStudentBtn = document.getElementById('roleStudentBtn');
+    const roleTeacherBtn = document.getElementById('roleTeacherBtn');
+    const roleTag = document.getElementById('roleTag');
+    const userRoleDisplay = document.getElementById('userRoleDisplay');
+    const profileName = document.getElementById('profileName');
+
+    const dynamicContent = document.getElementById('dynamicContent');
+    const panelTitle = document.getElementById('panelTitle');
+    const backButton = document.getElementById('backButton');
+    const backLabel = document.getElementById('backLabel');
+    const homeMenu = document.getElementById('homeMenu');
+    const classroomMenu = document.getElementById('classroomMenu');
+
+    let currentRole = 'Student'; // 'Student' or 'Teacher'
+    let currentView = 'home';    // 'home', 'classroom', 'subjects', 'details'
+
+    // --- helper: set role UI ---
+    function setRole(role) {
+      currentRole = role;
+      roleTag.textContent = role;
+      userRoleDisplay.textContent = role;
+      if (role === 'Student') {
+        profileName.textContent = 'M. Reyes';
+        roleStudentBtn.classList.add('active');
+        roleTeacherBtn.classList.remove('active');
+      } else {
+        profileName.textContent = 'G. Mercado';
+        roleTeacherBtn.classList.add('active');
+        roleStudentBtn.classList.remove('active');
+      }
+      // reset to home on role change
+      goHome();
+    }
+
+    // --- navigation: render views ---
+    function goHome() {
+      currentView = 'home';
+      panelTitle.innerHTML = `<i class="fas fa-home"></i> Dashboard`;
+      dynamicContent.innerHTML = `
+        <div class="class-grid" id="classGrid">
+          <div class="class-card" data-class="grade12"><i class="fas fa-users"></i><span>Grade 12</span></div>
+          <div class="class-card" data-class="stem"><i class="fas fa-flask"></i><span>STEM</span></div>
+          <div class="class-card" data-class="amaca"><i class="fas fa-star"></i><span>AMECA</span></div>
+          <div class="class-card" data-class="subjects"><i class="fas fa-book-open"></i><span>Subjects</span></div>
+        </div>
+        <div style="margin-top: 18px; background:#f5f2eb; border-radius:20px; padding:16px;">
+          <p style="display:flex; gap:20px; flex-wrap:wrap; color:#1d3f2b;">
+            <span><i class="fas fa-clock" style="color:#2a5c3e;"></i> Upcoming: Math PT · Due 2026-07-05</span>
+            <span><i class="fas fa-bullhorn"></i> Announcement: Research defense</span>
+          </p>
+        </div>
+      `;
+      // reattach click listeners to class cards
+      document.querySelectorAll('.class-card').forEach(card => {
+        card.addEventListener('click', function(e) {
+          const cls = this.dataset.class;
+          if (cls === 'subjects') showSubjects();
+          else showClassroom(cls);
+        });
+      });
+      // update menu active
+      document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
+      homeMenu.classList.add('active');
+      backLabel.textContent = 'Back';
+    }
+
+    function showClassroom(className) {
+      currentView = 'classroom';
+      panelTitle.innerHTML = `<i class="fas fa-chalkboard-teacher"></i> Classroom · ${className}`;
+      dynamicContent.innerHTML = `
+        <div style="background:#f5f2eb; border-radius:24px; padding:16px;">
+          <h4 style="color:#1d3f2b;">Grade & Section: STEM 12-AMECA</h4>
+          <div style="margin: 14px 0; display:flex; gap:8px; flex-wrap:wrap;">
+            <span class="opt-pill" data-subject="math">📐 Math</span>
+            <span class="opt-pill" data-subject="science">🔬 Science</span>
+            <span class="opt-pill" data-subject="english">📖 English</span>
+            <span class="opt-pill" data-subject="research">📊 Research</span>
+          </div>
+          <div class="opt-row">
+            <span class="opt-pill" data-action="attendance"><i class="fas fa-check"></i> Attendance</span>
+            <span class="opt-pill" data-action="pt"><i class="fas fa-pencil-alt"></i> PT</span>
+            <span class="opt-pill" data-action="assignment"><i class="fas fa-tasks"></i> Assignment</span>
+          </div>
+          <div style="margin-top:10px; background:white; border-radius:20px; padding:12px;">
+            <p><i class="fas fa-calendar-alt"></i> Deadlines: Math PT (July 5) · Science Lab (July 10)</p>
+            <p><i class="fas fa-file-powerpoint"></i> PPT posted: Research Methods</p>
+          </div>
+        </div>
+      `;
+      // pill listeners
+      document.querySelectorAll('.opt-pill').forEach(pill => {
+        pill.addEventListener('click', function() {
+          const action = this.dataset.action;
+          if (action === 'pt') showPT();
+          else if (action === 'assignment') showAssignment();
+          else if (action === 'attendance') showAttendance();
+          else if (this.dataset.subject) showSubjectDetail(this.dataset.subject);
+        });
+      });
+      backLabel.textContent = '⬅ Back';
+      document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
+      classroomMenu.classList.add('active');
+    }
+
+    function showSubjects() {
+      currentView = 'subjects';
+      panelTitle.innerHTML = `<i class="fas fa-book-open"></i> Subjects`;
+      dynamicContent.innerHTML = `
+        <div class="subject-list">
+          <div class="subject-item" data-subject="math"><span>📐 Mathematics</span> <span class="badge-opt">PT · Due 07/05</span></div>
+          <div class="subject-item" data-subject="science"><span>🔬 Science</span> <span class="badge-opt">Lab report</span></div>
+          <div class="subject-item" data-subject="english"><span>📖 English</span> <span class="badge-opt">Essay</span></div>
+          <div class="subject-item" data-subject="research"><span>📊 Research</span> <span class="badge-opt">Defense</span></div>
+        </div>
+        <div style="margin-top:20px;">
+          <span class="opt-pill" id="viewClassRecord"><i class="fas fa-list"></i> Class Record</span>
+          <span class="opt-pill" id="viewAcademicRecord"><i class="fas fa-chart-line"></i> Academic Record</span>
+          <span class="opt-pill" id="viewTotalGrade"><i class="fas fa-calculator"></i> Total Grade</span>
+        </div>
+      `;
+      document.querySelectorAll('.subject-item').forEach(item => {
+        item.addEventListener('click', function() {
+          showSubjectDetail(this.dataset.subject);
+        });
+      });
+      document.getElementById('viewClassRecord')?.addEventListener('click', ()=> showClassRecord());
+      document.getElementById('viewAcademicRecord')?.addEventListener('click', ()=> showAcademicRecord());
+      document.getElementById('viewTotalGrade')?.addEventListener('click', ()=> showTotalGrade());
+      backLabel.textContent = '⬅ Back';
+    }
+
+    function showSubjectDetail(subject) {
+      currentView = 'detail';
+      panelTitle.innerHTML = `<i class="fas fa-book"></i> ${subject}`;
+      dynamicContent.innerHTML = `
+        <div style="background:#f5f2eb; border-radius:24px; padding:20px;">
+          <h4>${subject} · Class Record</h4>
+          <div style="display:flex; gap:12px; flex-wrap:wrap; margin:12px 0;">
+            <span class="opt-pill"><i class="fas fa-user-check"></i> Attendance</span>
+            <span class="opt-pill"><i class="fas fa-pencil-alt"></i> PT</span>
+            <span class="opt-pill"><i class="fas fa-tasks"></i> Assignment</span>
+          </div>
+          <p><i class="fas fa-calendar"></i> Due Dates: PT July 5, Assignment July 7</p>
+          <p><i class="fas fa-flag"></i> Performance Task: Research proposal</p>
+        </div>
+      `;
+      backLabel.textContent = '⬅ Back';
+    }
+
+    function showPT() {
+      panelTitle.innerHTML = `<i class="fas fa-pencil-alt"></i> Performance Task`;
+      dynamicContent.innerHTML = `<div style="background:#f5f2eb; border-radius:24px; padding:20px;">
+        <h4>PT: Math Problem Set</h4>
+        <p><i class="fas fa-calendar-alt"></i> Due: July 5, 2026</p>
+        <p><i class="fas fa-file"></i> Assignment: Solve 10 problems</p>
+        <span class="opt-pill">📎 Submit</span>
+      </div>`;
+      backLabel.textContent = '⬅ Back';
+    }
+
+    function showAssignment() {
+      panelTitle.innerHTML = `<i class="fas fa-tasks"></i> Assignment`;
+      dynamicContent.innerHTML = `<div style="background:#f5f2eb; border-radius:24px; padding:20px;">
+        <h4>Assignment: Research Outline</h4>
+        <p>Due: July 7, 2026</p>
+        <p><i class="fas fa-check-circle"></i> Status: Pending</p>
+      </div>`;
+      backLabel.textContent = '⬅ Back';
+    }
+
+    function showAttendance() {
+      panelTitle.innerHTML = `<i class="fas fa-user-check"></i> Attendance`;
+      dynamicContent.innerHTML = `<div style="background:#f5f2eb; border-radius:24px; padding:20px;">
+        <p>✅ Present: 24/30</p>
+        <p>📅 Last meeting: June 27, 2026</p>
+      </div>`;
+      backLabel.textContent = '⬅ Back';
+    }
+
+    function showClassRecord() {
+      panelTitle.innerHTML = `<i class="fas fa-list"></i> Class Record`;
+      dynamicContent.innerHTML = `<div style="background:#f5f2eb; border-radius:24px; padding:20px;">
+        <p><i class="fas fa-users"></i> Class: STEM 12-AMECA</p>
+        <p>📊 Average: 88.5%</p>
+        <p>📅 Record updated: 2026-06-27</p>
+      </div>`;
+    }
+
+    function showAcademicRecord() {
+      panelTitle.innerHTML = `<i class="fas fa-chart-line"></i> Academic Record`;
+      dynamicContent.innerHTML = `<div style="background:#f5f2eb; border-radius:24px; padding:20px;">
+        <p>📈 1st Quarter: 86%</p>
+        <p>📈 2nd Quarter: 90%</p>
+        <p>📅 Date: 2026-06-27</p>
+      </div>`;
+    }
+
+    function showTotalGrade() {
+      panelTitle.innerHTML = `<i class="fas fa-calculator"></i> Total Grade`;
+      dynamicContent.innerHTML = `<div style="background:#f5f2eb; border-radius:24px; padding:20px;">
+        <h4>General Average: 88.2%</h4>
+        <p>Math: 85% · Science: 90% · English: 89%</p>
+      </div>`;
+    }
+
+    // --- back button ---
+    function goBack() {
+      if (currentView === 'home') return;
+      if (currentView === 'classroom' || currentView === 'detail' || currentView === 'subjects') {
+        goHome();
+      } else {
+        goHome();
+      }
+    }
+
+    // --- login/logout ---
+    function login() {
+      loginPage.style.display = 'none';
+      appContainer.style.display = 'flex';
+      goHome();
+    }
+
+    function logout() {
+      loginPage.style.display = 'flex';
+      appContainer.style.display = 'none';
+      settingsOverlay.classList.remove('open');
+    }
+
+    // --- event binding ---
+    loginBtn.addEventListener('click', login);
+    logoutBtn.addEventListener('click', logout);
+    logoutFromSettings.addEventListener('click', logout);
+
+    roleStudentBtn.addEventListener('click', function() { setRole('Student'); });
+    roleTeacherBtn.addEventListener('click', function() { setRole('Teacher'); });
+
+    settingsGear.addEventListener('click', function() {
+      settingsOverlay.classList.toggle('open');
+    });
+    closeSettings.addEventListener('click', function() {
+      settingsOverlay.classList.remove('open');
+    });
+    settingsMenuItem.addEventListener('click', function() {
+      settingsOverlay.classList.toggle('open');
+    });
+
+    backButton.addEventListener('click', goBack);
+
+    // home menu
+    homeMenu.addEventListener('click', goHome);
+    classroomMenu.addEventListener('click', function() {
+      if (currentView === 'home') showClassroom('STEM 12');
+      else showClassroom('STEM 12');
+    });
+
+    // default role
+    setRole('Student');
+    // close settings on outside click? optional
+    document.addEventListener('click', function(e) {
+      if (settingsOverlay.classList.contains('open')) {
+        if (!settingsOverlay.contains(e.target) && e.target !== settingsGear && !settingsGear.contains(e.target) && e.target !== settingsMenuItem) {
+          settingsOverlay.classList.remove('open');
+        }
+      }
+    });
+
+  })();
+</script>
+</body>
+</html>
